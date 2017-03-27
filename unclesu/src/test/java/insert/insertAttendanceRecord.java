@@ -10,7 +10,8 @@ import java.sql.SQLException;
 public class insertAttendanceRecord {
 	public static void main(String[] args) {
 		Connection conn = null;
-		System.out.println("hereaa");
+
+
 		try {
 			String connUrl = "jdbc:sqlserver://localhost:1433;databaseName=UncleSu";
 			conn = DriverManager.getConnection(connUrl, "sa", "passw0rd");
@@ -18,7 +19,8 @@ public class insertAttendanceRecord {
 			PreparedStatement pstmt = conn.prepareStatement(qryStmt);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				System.out.println("here");
+				
+
 				Date date = rs.getDate("msched_date");
 				String mc = rs.getString("msched_class").trim();
 				int me = rs.getInt("msched_empid");

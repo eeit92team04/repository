@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- <link rel=icon href=/Content/AssetsBS3/img/favicon.ico>-->
-<link href="/unclesu/img/favicon.ico" rel="SHORTCUT ICON">
-<link href="/unclesu/css/bootstrap.css" rel=stylesheet>
+<link href="<c:url value="img/favicon.ico" />" rel="SHORTCUT ICON">
+<link href="<c:url value="css/bootstrap.css" />" rel=stylesheet>
 <nav class="navbar navbar-default navbar-fixed-top" role=navigation>
 	<button type=button class="navbar-toggle collapsed"
 		data-toggle=collapse data-target=#navbar aria-expanded=false
@@ -58,14 +60,77 @@
 					</ul>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a data-toggle="tab" href="#"><span
-						class="glyphicon glyphicon-user"></span>Admin</a></li>
-				<li><a data-toggle="tab" href="#"
-					class="glyphicon glyphicon-log-out">Log out</a></li>
-
+				<li><a href="#" class="glyphicon glyphicon-user">Admin</a></li>
+				<li><a href="#" class="glyphicon glyphicon-log-out">Log out</a></li>
+				<li><button type="button" class="btn btn-primary btn-lg"
+						data-toggle="modal" data-target="#myModal">打卡</button></li>
 			</ul>
 		</div>
 	</div>
 </nav>
-<script src="js/jquery-3.1.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">員工打卡</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">員工編號</label>
+						<div class="col-sm-10">
+							<input class="form-control" id="empid"
+								placeholder="請輸入員工編號">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">密碼</label>
+						<div class="col-sm-10">
+							<input type="password" class="form-control" id="emppassword"
+								placeholder="請輸入密碼">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-default" id="onduty">上班</button>
+							<button type="submit" class="btn btn-default" id="offduty">下班</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	window.onload = function() {
+		var btn = document.getElementById("onduty");
+		var btn1 = document.getElementById("offduty");
+		var xhr = new XMLHttpRequest();
+		btn.onclick = myclick;
+		btn1.onclick = myclick;
+		function myclick() {
+			//alert(this.id);
+			if (xhr != null) {
+				xhr.onreadystatechange = showtimefunc;
+				xhr.open("GET", "", true);
+				xhr.send();
+			} else {
+				div1.innerHTML = "你的瀏覽器不支援AJAX<br>";
+			}
+		}
+		function showtimefunc() {
+			//console.log(xhr.readyState);
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				alert(this);
+			}
+		}
+	}
+</script>
+<script src="<c:url value="js/jquery-3.1.1.min.js" />"></script>
+<script src="<c:url value="js/bootstrap.min.js" />"></script>
+
